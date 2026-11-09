@@ -15,8 +15,8 @@
  --white:#f5f5f5;
  --soft:#cfd8dc;
  --border:rgba(212,175,55,0.4);
- --fg:#f5f5f5;          /* 👈 DODAJ */
- --accent:#00ff99;      /* 👈 DODAJ (LED zelena) */
+ --fg:#222222;          
+ --accent:#008f5a;      
 }
 
 *{box-sizing:border-box}
@@ -24,18 +24,16 @@
 html,body{
  min-height:100%;
  margin:0;
- background:#ffffff;
+ background:#ffffff !important;
  color:var(--fg);
  font-family:Arial,Helvetica,sans-serif;
- overflow-x:hidden;   /* samo horizontalno zabrani */
+ overflow-x:hidden;   
 }
 
 body{
  display:flex;
  justify-content:center;
  align-items:center;
- zoom: min(1, 100vh / 900);
-
 }
 
 .wrap{
@@ -44,52 +42,49 @@ body{
  padding:clamp(10px,2vw,25px);
  display:flex;
  flex-direction:column;
- background:#ffffff;
+ background:#ffffff !important;
+ max-width: 1400px;
+ margin: 0 auto;
 }
 
 .header{
  width:100%;
- margin-bottom:20px;
+ margin-bottom:10px;
+ position:relative;
 }
 
 .header-top{
  display:grid;
  grid-template-columns:auto 1fr auto;
  align-items:center;
- gap:20px;
+ gap:15px;
  width:100%;
  text-transform:uppercase;
  text-shadow:
- 0 0 10px rgba(212,175,55,0.8),
- 0 0 30px rgba(212,175,55,0.6),
- 0 0 60px rgba(212,175,55,0.4);
- 
-
+ 0 0 10px rgba(212,175,55,0.8);
 }
 
 .logo{
- height:clamp(100px, 8vw, 180px);
+ height:clamp(60px, 7vw, 130px);
+ object-fit: contain;
 }
 
 .title{
- font-size:clamp(28px,4vw,70px);
+ font-size:clamp(22px, 3.5vw, 55px);
  color:var(--gold);
- letter-spacing:3px;
+ letter-spacing:2px;
  font-weight:700;
  text-align:center;
  width:100%;
- justify-self:center;
-
  text-shadow:
-   0 0 10px rgba(212,175,55,0.6),
-   0 0 30px rgba(212,175,55,0.4);
+   0 0 10px rgba(212,175,55,0.6);
 }
 
 .ornament{
  position:relative;
  width:70%;
- margin:20px auto 0 auto;
- height:30px;
+ margin:10px auto 0 auto;
+ height:20px;
  display:flex;
  align-items:center;
  justify-content:center;
@@ -99,10 +94,9 @@ body{
 .ornament::after{
  content:"";
  flex:1;
- height:3px;
+ height:2px;
  margin:0 15px;
  border-radius:10px;
-
  background:linear-gradient(
    90deg,
    transparent,
@@ -111,144 +105,148 @@ body{
    var(--gold),
    transparent
  );
-
- box-shadow:
-   0 0 10px rgba(212,175,55,0.8),
-   0 0 25px rgba(212,175,55,0.4);
 }
 
 .ornament-symbol{
- font-size:50px;
+ font-size:30px;
  color:var(--gold);
- text-shadow:
-   0 0 8px rgba(212,175,55,0.8),
-   0 0 20px rgba(212,175,55,0.5);
 }
 
 .dates{
  display:flex;
  justify-content:center;
- gap:20px;
- margin-top:10px;
+ gap:15px;
+ margin-top:5px;
+ flex-wrap: wrap;
 }
 
 .greg,.hijri{
- font-size:clamp(16px, 2vw, 36px);
+ font-size:clamp(14px, 1.8vw, 26px);
  font-weight:bold;
- color:var(--accent);
+ color:#555555;
 }
 
 .clock{
- font-size:clamp(50px,8vw,140px);
+ font-size:clamp(40px, 7vw, 110px);
  font-weight:900;
- color:#ffffff;
+ color:var(--accent);
  text-align:center;
- letter-spacing:5px;
+ letter-spacing:3px;
  font-family: 'Orbitron', sans-serif;
+ text-shadow: 0 0 20px rgba(0, 143, 90, 0.3);
+ margin: 10px 0;
+}
 
- text-shadow:
- 0 0 10px #00ff99,
- 0 0 30px #00ff99,
- 0 0 60px #00ff99;
+/* KALIGRAFIJE - Fleksibilno pozicioniranje da se ne sudaraju na mobitelu */
+.kaligrafija{
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index:10;
+    pointer-events:none;
+}
 
+.kaligrafija.lijevo{
+    left: 10px;
+}
+
+.kaligrafija.desno{
+    right: 10px;
+}
+
+.kaligrafija img{
+    width: clamp(70px, 12vw, 180px);
+    height:auto;
+    filter:none;
+}
+
+.main-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .grid{
- flex:1;
  display:grid;
- grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
- gap:15px;
- align-content:center;
+ grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+ gap:12px;
+ margin-top: 10px;
 }
 
 .test-controls{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap:25px;
-  margin:25px 0 10px 0;
+  gap:15px;
+  margin:15px 0;
+  flex-wrap: wrap;
 }
 
 .test-controls button{
   font-family: 'Orbitron', sans-serif;
-  font-size:16px;
-  padding:10px 22px;
+  font-size:14px;
+  padding:8px 16px;
   background:transparent;
-  color:#00ff99;
-  border:2px solid #00ff99;
+  color:var(--accent);
+  border:2px solid var(--accent);
   border-radius:8px;
   cursor:pointer;
   letter-spacing:1px;
   transition:all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
 .test-controls button:hover{
-  background:#00ff99;
-  color:#021a14;
-  box-shadow:0 0 15px #00ff99;
+  background:var(--accent);
+  color:#ffffff;
 }
 
 #muteBtn{
-  font-size:20px;
-  padding:10px 16px;
+  font-size:18px;
+  padding:8px 12px;
   border-radius:50%;
 }
 
 .card{
- background:#ffffff;
+ background:#ffffff !important;
  border:2px solid var(--border);
- border-radius:20px;
- padding:clamp(18px,2vw,30px) clamp(10px,1.2vw,18px);
+ border-radius:15px;
+ padding:clamp(12px, 1.5vw, 20px) clamp(8px, 1vw, 15px);
  text-align:center;
- box-shadow:
-   0 4px 18px rgba(0,0,0,0.12),
-   inset 0 0 0 rgba(0,0,0,0);
+ box-shadow: 0 4px 18px rgba(0,0,0,0.08);
  transition:all 0.4s ease;
- overflow:visible;
-
-}
-
-.card.active{
- transform:scale(1.08);
- border:3px solid var(--gold);
- box-shadow:
-   0 0 40px rgba(212,175,55,0.8),
-   inset 0 0 20px rgba(212,175,55,0.4);
 }
 
 .card.current{
- border:4px solid var(--gold);
- box-shadow:
-   0 0 15px rgba(212,175,55,0.7),
-   0 0 40px rgba(212,175,55,0.4),
-   inset 0 0 20px rgba(212,175,55,0.2);
+ border:3px solid var(--gold);
+ box-shadow: 0 0 25px rgba(212,175,55,0.4);
 }
 
 .name{
- font-size:clamp(18px,2vw,36px);
+ font-size:clamp(16px, 1.8vw, 28px);
  color:var(--gold);
  font-weight:700;
  letter-spacing:1px;
- margin-bottom:10px;
+ margin-bottom:5px;
 }
 
 .time{
- font-size: clamp(28px, 4.5vw, 75px);
+ font-size: clamp(24px, 3.5vw, 55px);
  font-weight:900;
  color:#222222;
  font-family:'Orbitron', sans-serif;
- text-shadow:0 0 15px rgba(255,255,255,0.3);
-
  white-space:nowrap;
  display:inline-block;
- padding:0 6px;
+ padding:0 4px;
 }
 
 .countdown{
  color:var(--accent);
  margin-top:2px;
- font-size:clamp(20px, 4vw, 40px);
- font-weight:bold; /* opcionalno */
+ font-size:clamp(16px, 2.5vw, 28px);
+ font-weight:bold;
 }
 
 .footer{
@@ -257,230 +255,91 @@ body{
 }
 
 .nextBox{
- font-size:40px;
+ font-size:clamp(18px, 2.5vw, 32px);
  color:var(--accent);
+ font-weight: bold;
 }
 
 .hadis{
- font-size:clamp(18px,2.5vw,36px);
+ font-size:clamp(14px, 2vw, 22px);
  text-align:center;
  color:#d4af37;
- margin-top:20px;
- padding:15px;
+ margin-top:10px;
+ padding:10px;
  border-top:1px solid var(--border);
- letter-spacing:1px;
- font-style:Italic
+ font-style:italic;
 }
 
-@media (max-width:768px){
-
- .wrap{
-  padding:20px;
- }
-
- .dates{
-  flex-direction:column;
-  gap:5px;
- }
-
+.ramadan-banner{
+  font-size: clamp(18px, 2.5vw, 26px);
+  letter-spacing: 2px;
+  color: #c9a227;
+  text-align: center;
+  margin-top: 5px;
+  font-weight: 600;
 }
 
 @keyframes flash{
- 0%{
-   box-shadow:0 0 20px #00ff99;
- }
- 50%{
-   box-shadow:0 0 80px #00ff99;
- }
- 100%{
-   box-shadow:0 0 20px #00ff99;
- }
+ 0%{ box-shadow:0 0 10px var(--accent); }
+ 50%{ box-shadow:0 0 40px var(--accent); }
+ 100%{ box-shadow:0 0 10px var(--accent); }
 }
 
 .card.started{
  animation:flash 1s infinite;
- border:4px solid #00ff99;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    grid-template-columns: 1fr; /* Na mobitelu svaka kartica ide u svoju kolonu preko cijelog ekrana */
-    gap: 10px;
-  }
-  
-  .header-top {
-    grid-template-columns: 1fr; /* Slaže logo i naziv jedno ispod drugog */
-    text-align: center;
-  }
-
-  .logo {
-    height: 50px; /* Smanjuje logo na mobitelu da ne zauzima previše prostora */
-  }
- .ornament{
-  width:90%;
- }
-
- .clock{
-  font-size:clamp(35px,10vw,80px);
- }
-
- .grid{
-  grid-template-columns:repeat(2,1fr);
- }
-
- .time{
-  font-size:clamp(24px,6vw,60px);
- }
-
-}
-
-@media (max-width:500px){
-
- .grid{
-  grid-template-columns:1fr;
- }
-
- .name{
-  font-size:20px;
- }
-
- .hadis{
-  font-size:16px;
- }
-
-/* Prilagođavanje za mobitele i manje ekrane */
-@media (max-width: 768px) {
-  /* Isključi apsolutno preklapanje slika na mobitelu da se ne sudaraju sa satom */
-  .decoration-left, .decoration-right, .lekova-slika-kriva {
-    position: relative !important;
-    display: block;
-    margin: 0 auto 10px auto;
-    max-width: 100px; /* Smanji ukrase da ne bodu oči */
-  }
-
-  /* Rasporedi sat u normalan tok da se ne preklapa */
-  .clock-container {
-    position: relative !important;
-    font-size: clamp(32px, 8vw, 50px) !important;
-    margin: 15px 0;
-  }
-
-  /* Slozi dugmad za ezan jedno ispod drugog ili smanji razmak */
-  .ezan-buttons, .audio-controls {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  /* Kartice vaktova jedna ispod druge preko cijelog ekrana */
-  .grid {
-    grid-template-columns: 1fr !important;
-    gap: 10px;
-    padding: 0 10px;
-  }
- 
+ border:3px solid var(--accent);
 }
 
 #muteBtn.muted{
   border-color:red;
   color:red;
-  box-shadow:0 0 15px red;
 }
 
-/* =========================
-   RAMAZANSKI STIL (minimalni)
-========================= */
-
-body.ramadan{
-  background:#ffffff;
+/* RESPONSIVE PRILAGODDBA ZA MOBILNE UREĐAJE */
+@media (max-width: 768px) {
+  body {
+    display: block;
+  }
+  .wrap {
+    padding: 10px;
+  }
+  .header-top {
+    grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+    gap: 8px;
+  }
+  .logo {
+    height: 50px;
+  }
+  /* Sakrij ili premjesti apsolutne kaligrafije na malim ekranima da ne smetaju */
+  .kaligrafija {
+    position: static;
+    transform: none;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+  }
+  .main-display {
+    flex-direction: column;
+  }
+  .kaligrafija img {
+    width: 60px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .clock {
+    font-size: clamp(32px, 8vw, 50px);
+  }
 }
 
-body.ramadan .card{
-  border: 2px solid #c9a227;
-  box-shadow: 0 0 18px rgba(201,162,39,0.35);
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
-
-body.ramadan .next{
-  border: 2px solid #ffd700;
-  box-shadow: 0 0 25px rgba(255,215,0,0.5);
-}
-
-.ramadan-banner{
-  font-size: 26px;
-  letter-spacing: 3px;
-  color: #e6c65c;
-  text-align: center;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-
-/* KALIGRAFIJE */
-
-.header{
-    position:relative;
-}
-
-.kaligrafija{
-    position:absolute;
-    top:180px;
-    z-index:10;
-    pointer-events:none;
-}
-
-.kaligrafija.lijevo{
-    left:200px;
-}
-
-.kaligrafija.desno{
-    right:200px;
-}
-
-.kaligrafija img{
-    width:240px;
-    height:auto;
-    filter:none;}
-
-
-/* =========================================================
-   SVIJETLA / BIJELA VERZIJA – ČARŠIJSKA VAKTIJA
-   Sadržaj, podaci i JavaScript funkcionalnost ostaju isti.
-   ========================================================= */
-html, body {
-  background: #ffffff !important;
-  color: #222222;
-}
-
-body.ramadan {
-  background: #ffffff !important;
-}
-
-.wrap {
-  background: #ffffff !important;
-}
-
-.card {
-  background: #ffffff !important;
-  border-color: rgba(184,134,11,0.38);
-  box-shadow: 0 4px 18px rgba(0,0,0,0.12),
-              inset 0 0 0 rgba(0,0,0,0);
-}
-
-.greg, .hijri {
-  color: #555555;
-}
-
-.time {
-  color: #222222;
-}
-
-.clock {
-  color: #008f5a;
-}
-
-button {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-
 </style>
 </head>
 <body>
@@ -491,42 +350,43 @@ button {
 <div class="wrap">
 
 <div class="header">
-
  <div class="header-top">
-    <img src="Logo_IZ_BiH_MIZ.png" class="logo">
+    <img src="Logo_IZ_BiH_MIZ.png" class="logo" alt="Logo IZ">
 
     <div class="header-center">
         <div class="title">Čaršijska džamija Srebrenik</div>
-
         <div class="ornament">
             <span class="ornament-symbol">۞</span>
         </div>
     </div>
 
-    <img src="Logo_DZAMIJA.png" class="logo">
+    <img src="logo_DZAMIJA.png" class="logo" alt="Logo Džamija">
 </div>
-
-
 
   <div class="dates">
     <div id="greg" class="greg"></div>
     <div id="hijri" class="hijri"></div>
   </div>
- <div id="ramadanText" class="ramadan-banner" style="display:none;">
-  🌙 RAMAZAN MUBAREK
-</div>
-  <div id="clock" class="clock">--:--:--</div>
-<div class="kaligrafija lijevo">
-    <img src="muhamed.png" alt="Muhamed">
+  
+  <div id="ramadanText" class="ramadan-banner" style="display:none;">
+    🌙 RAMAZAN MUBAREK
+  </div>
 </div>
 
-<div class="kaligrafija desno">
-    <img src="allah.png" alt="Allah">
-</div>
+<div class="main-display">
+    <div class="kaligrafija lijevo">
+        <img src="muhamed.png" alt="Muhamed">
+    </div>
+
+    <div id="clock" class="clock">--:--:--</div>
+
+    <div class="kaligrafija desno">
+        <img src="allah.png" alt="Allah">
+    </div>
 </div>
 
 <div class="test-controls">
-  <button onclick="playEzan('zora')">EZAN ZA SABAH</button>
+  <button onclick="playEzan('Zora')">EZAN ZA SABAH</button>
   <button id="muteBtn" onclick="toggleMute()">🔊</button> 
   <button onclick="playEzan('Podne')">EZAN OSTALI</button>
 </div>
@@ -535,13 +395,12 @@ button {
 
 <div class="footer">
  <div id="nextBox" class="nextBox">Sljedeća aktivnost: —</div>
-<div id="hadisBox" class="hadis"></div>
+ <div id="hadisBox" class="hadis"></div>
 </div>
 
 </div>
 
 <script>
-
 const NAMES=["Zora","Izlazak Sunca","Podne","Ikindija","Akšam","Jacija"];
 const HADISI = [
   "Najbolji među vama su oni koji su najkorisniji ljudima.",
@@ -597,7 +456,6 @@ const VAKTIJA = {
 "2026-01-29":["05:30","07:05","12:00","14:27","16:55","18:17"],
 "2026-01-30":["05:29","07:04","12:01","14:28","16:56","18:19"],
 "2026-01-31":["05:29","07:03","12:01","14:29","16:58","18:20"],
-
 "2026-02-01":["05:26","07:00","12:01","14:31","17:00","18:22"],
 "2026-02-02":["05:25","06:59","12:01","14:32","17:02","18:23"],
 "2026-02-03":["05:24","06:57","12:01","14:33","17:03","18:24"],
@@ -626,7 +484,6 @@ const VAKTIJA = {
 "2026-02-26":["04:54","06:24","12:00","14:57","17:34","18:53"],
 "2026-02-27":["04:52","06:23","12:00","14:58","17:35","18:54"],
 "2026-02-28":["04:50","06:21","12:00","14:59","17:36","18:55"],
-
 "2026-03-01":["04:48","06:18","12:00","15:03","17:40","18:59"],
 "2026-03-02":["04:46","06:16","12:00","15:04","17:41","19:00"],
 "2026-03-03":["04:44","06:15","11:59","15:04","17:42","19:01"],
@@ -658,7 +515,6 @@ const VAKTIJA = {
 "2026-03-29":["04:55","06:29","12:52","16:23","19:15","20:36"],
 "2026-03-30":["04:53","06:27","12:52","16:24","19:16","20:37"],
 "2026-03-31":["04:51","06:25","12:52","16:24","19:18","20:38"],
-
 "2026-04-01":["04:47","06:21","12:51","16:26","19:20","20:41"],
 "2026-04-02":["04:44","06:19","12:51","16:26","19:21","20:42"],
 "2026-04-03":["04:42","06:17","12:51","16:26","19:22","20:44"],
@@ -689,7 +545,6 @@ const VAKTIJA = {
 "2026-04-28":["03:49","05:36","12:45","16:39","19:52","21:23"],
 "2026-04-29":["03:47","05:34","12:45","16:39","19:53","21:25"],
 "2026-04-30":["03:45","05:33","12:44","16:39","19:54","21:27"],
-
 "2026-05-01":["03:42","05:30","12:44","16:41","19:58","21:30"],
 "2026-05-02":["03:40","05:29","12:44","16:42","19:59","21:32"],
 "2026-05-03":["03:38","05:27","12:44","16:42","20:00","21:34"],
@@ -721,7 +576,6 @@ const VAKTIJA = {
 "2026-05-29":["02:51","05:00","12:44","16:51","20:28","22:16"],
 "2026-05-30":["02:50","04:59","12:45","16:52","20:29","22:18"],
 "2026-05-31":["02:49","04:58","12:45","16:52","20:30","22:19"],
-
 "2026-06-01":["02:47","04:57","12:45","16:52","20:30","22:20"],
 "2026-06-02":["02:45","04:56","12:45","16:52","20:31","22:22"],
 "2026-06-03":["02:44","04:56","12:45","16:52","20:31","22:23"],
@@ -752,7 +606,6 @@ const VAKTIJA = {
 "2026-06-28":["02:39","04:55","12:50","16:59","20:42","22:37"],
 "2026-06-29":["02:40","04:56","12:50","16:59","20:41","22:37"],
 "2026-06-30":["02:41","04:56","12:50","16:59","20:41","22:36"],
-
 "2026-07-01":["02:42","04:56","12:51","16:59","20:41","22:36"],
 "2026-07-02":["02:43","04:57","12:51","16:59","20:41","22:35"],
 "2026-07-03":["02:44","04:58","12:51","16:59","20:41","22:35"],
@@ -784,7 +637,6 @@ const VAKTIJA = {
 "2026-07-29":["03:24","05:20","12:54","16:56","20:23","22:03"],
 "2026-07-30":["03:26","05:21","12:54","16:56","20:22","22:02"],
 "2026-07-31":["03:28","05:22","12:54","16:55","20:20","22:00"],
-
 "2026-08-01":["03:32","05:25","12:53","16:53","20:18","21:57"],
 "2026-08-02":["03:34","05:27","12:53","16:52","20:17","21:55"],
 "2026-08-03":["03:36","05:28","12:53","16:52","20:16","21:53"],
@@ -816,7 +668,6 @@ const VAKTIJA = {
 "2026-08-29":["04:20","05:57","12:48","16:34","19:37","21:02"],
 "2026-08-30":["04:22","05:58","12:48","16:32","19:35","21:00"],
 "2026-08-31":["04:23","05:59","12:48","16:31","19:33","20:57"],
-
 "2026-09-01":["04:26","06:01","12:47","16:28","19:29","20:53"],
 "2026-09-02":["04:27","06:02","12:47","16:27","19:28","20:51"],
 "2026-09-03":["04:29","06:03","12:47","16:26","19:26","20:49"],
@@ -847,7 +698,6 @@ const VAKTIJA = {
 "2026-09-28":["05:03","06:32","12:38","15:56","18:40","19:59"],
 "2026-09-29":["05:04","06:34","12:38","15:55","18:38","19:57"],
 "2026-09-30":["05:06","06:35","12:37","15:54","18:37","19:55"],
-
 "2026-10-01":["05:09","06:38","12:37","15:52","18:34","19:52"],
 "2026-10-02":["05:10","06:39","12:37","15:50","18:32","19:50"],
 "2026-10-03":["05:11","06:41","12:36","15:48","18:30","19:48"],
@@ -879,7 +729,6 @@ const VAKTIJA = {
 "2026-10-29":["04:42","06:13","11:31","14:15","16:47","18:07"],
 "2026-10-30":["04:44","06:14","11:31","14:14","16:45","18:05"],
 "2026-10-31":["04:45","06:15","11:31","14:13","16:44","18:04"],
-
 "2026-11-01":["04:47","06:17","11:31","14:10","16:40","18:01"],
 "2026-11-02":["04:48","06:19","11:31","14:08","16:39","18:00"],
 "2026-11-03":["04:49","06:20","11:31","14:07","16:38","17:58"],
@@ -910,7 +759,6 @@ const VAKTIJA = {
 "2026-11-28":["05:17","06:53","11:35","13:49","16:15","17:39"],
 "2026-11-29":["05:18","06:54","11:36","13:49","16:14","17:39"],
 "2026-11-30":["05:19","06:55","11:36","13:48","16:14","17:39"],
-
 "2026-12-01":["05:21","06:57","11:36","13:47","16:12","17:38"],
 "2026-12-02":["05:22","06:59","11:36","13:46","16:12","17:37"],
 "2026-12-03":["05:22","07:00","11:37","13:46","16:12","17:37"],
@@ -942,17 +790,14 @@ const VAKTIJA = {
 "2026-12-29":["05:39","07:17","11:49","13:55","16:18","17:45"],
 "2026-12-30":["05:39","07:17","11:50","13:56","16:19","17:46"],
 "2026-12-31":["05:39","07:17","11:50","13:57","16:20","17:47"]
-
 };
-// RUČNI OFFSET ZA HIDŽRETSKI DATUM (BiH)
+
 const HIJRI_OFFSET = -2; 
 let lastPlayed = null;
 let isMuted = false;
 
 function playEzan(vakatName){
-
   if(vakatName === "Izlazak Sunca") return;
-
   if(isMuted) return;
 
   const regular = document.getElementById("ezanRegular");
@@ -960,21 +805,16 @@ function playEzan(vakatName){
 
   regular.pause();
   zora.pause();
-
   regular.currentTime = 0;
   zora.currentTime = 0;
 
   const audio = vakatName === "Zora" ? zora : regular;
-
   audio.play().catch(()=>{});
 }
 
 function toggleMute(){
-
   isMuted = !isMuted;
-
   const btn = document.getElementById("muteBtn");
-
   btn.classList.toggle("muted");
 
   if(isMuted){
@@ -1003,27 +843,17 @@ function timeToDate(base,t){
  return d;
 }
 
-/* DATUM */
-
 function updateDate(){
-
  const now = new Date();
+ let islamicDate = new Date(now);
 
- // --- AKŠAM LOGIKA (islamski dan počinje sa akšamom) ---
-let islamicDate = new Date(now);
+ const key = getDateKey(now);
+ const data = VAKTIJA[key];
 
-const key = getDateKey(now);
-const data = VAKTIJA[key];
-
-if(data){
-
-  const akshamTime = data[4]; // Akšam je 5. u nizu
+ if(data){
+  const akshamTime = data[4];
   const [akHour, akMin] = akshamTime.split(":").map(Number);
-
-  if(
-    now.getHours() > akHour ||
-    (now.getHours() === akHour && now.getMinutes() >= akMin)
-  ){
+  if(now.getHours() > akHour || (now.getHours() === akHour && now.getMinutes() >= akMin)){
     islamicDate.setDate(islamicDate.getDate() + 1);
   }
 }
@@ -1037,13 +867,9 @@ if(data){
  const mjesec = mjeseci[now.getMonth()];
  const godina = now.getFullYear();
 
- document.getElementById("greg").innerText =
-  dan + ". " + mjesec + " " + godina + ". /";
-
- // ---- HIDŽRETSKI DATUM (ručni proračun) ----
+ document.getElementById("greg").innerText = dan + ". " + mjesec + " " + godina + ". /";
 
  function gregToHijri(gDate){
-
    const day = gDate.getDate();
    const month = gDate.getMonth()+1;
    const year = gDate.getFullYear();
@@ -1075,56 +901,43 @@ if(data){
  ];
 
  const h = gregToHijri(islamicDate);
-// Aktivacija Ramazanskog stila
-if(h.month === 9){
-  document.body.classList.add("ramadan");
-  document.getElementById("ramadanText").style.display = "block";
-}else{
-  document.body.classList.remove("ramadan");
-  document.getElementById("ramadanText").style.display = "none";
-}
-// primjena ručnog offseta
-h.day += HIJRI_OFFSET;
 
-// korekcija ako ode ispod 1
-if(h.day < 1){
-  h.month -= 1;
-  if(h.month < 1){
-    h.month = 12;
-    h.year -= 1;
-  }
-  h.day = 30; // dovoljno za ±1
-}
- document.getElementById("hijri").innerText =
-  h.day + ". " + hijriMonths[h.month-1] + " " + h.year + ".";
+ if(h.month === 9){
+   document.body.classList.add("ramadan");
+   document.getElementById("ramadanText").style.display = "block";
+ }else{
+   document.body.classList.remove("ramadan");
+   document.getElementById("ramadanText").style.display = "none";
+ }
+
+ h.day += HIJRI_OFFSET;
+ if(h.day < 1){
+   h.month -= 1;
+   if(h.month < 1){
+     h.month = 12;
+     h.year -= 1;
+   }
+   h.day = 30;
+ }
+ document.getElementById("hijri").innerText = h.day + ". " + hijriMonths[h.month-1] + " " + h.year + ".";
 }
 
-// Aktivacija audio dozvole (jednom)
 document.addEventListener("click", function enableAudio(){
-
   const a1 = document.getElementById("ezanRegular");
   const a2 = document.getElementById("ezanSabah");
-
   [a1, a2].forEach(a=>{
     if(!a) return;
-
     a.play().then(()=>{
       a.pause();
       a.currentTime = 0;
     }).catch(()=>{});
   });
-
   document.removeEventListener("click", enableAudio);
 });
 
-
-/* GRID */
-
 function buildGrid(){
-
  const g=document.getElementById("grid");
  g.innerHTML="";
-
  for(let i=0;i<6;i++){
   let c=document.createElement("div");
   c.className="card";
@@ -1136,32 +949,21 @@ function buildGrid(){
  }
 }
 
-/* UPDATE */
-
 function update(){
-
  const now=new Date();
-
-
-
  document.getElementById("clock").innerText=formatTime(now);
-
  updateDate();
 
  const key=getDateKey(now);
  const data=VAKTIJA[key];
-
  if(!data) return;
 
  let cards=document.querySelectorAll(".card");
-
  let times=[];
 
  data.forEach((t,i)=>{
-
   cards[i].querySelector(".name").innerText=NAMES[i];
   cards[i].querySelector(".time").innerText=t;
-
   cards[i].classList.remove("current");
 
   times.push({
@@ -1195,66 +997,49 @@ function update(){
 
  let diff = Math.floor((next.date-now)/1000);
 
-  // 🔔 Kad nastupi vakat (tačno u sekundi)
-if(diff <= 0 && lastPlayed !== next.name){
- 
-playEzan(next.name);
+ if(diff <= 0 && lastPlayed !== next.name){
+   playEzan(next.name);
+   lastPlayed = next.name;
+   let idxNext = NAMES.indexOf(next.name);
+   cards[idxNext].classList.add("started");
+ }
 
-  lastPlayed = next.name;
-
-  let idxNext = NAMES.indexOf(next.name);
-  cards[idxNext].classList.add("started");
-}
-
-// reset nakon 5 minuta
-if(diff > 300){
-  lastPlayed = null;
-  document.querySelectorAll(".card").forEach(c=>{
-    c.classList.remove("started");
-  });
-}
+ if(diff > 300){
+   lastPlayed = null;
+   document.querySelectorAll(".card").forEach(c=>{
+     c.classList.remove("started");
+   });
+ }
 
  diff = Math.max(0, diff);
-
  let h=Math.floor(diff/3600);
  let m=Math.floor((diff%3600)/60);
  let s=diff%60;
-
  let cd=pad(h)+":"+pad(m)+":"+pad(s);
 
  let idxNext=NAMES.indexOf(next.name);
 
-cards.forEach(card=>{
+ cards.forEach(card=>{
   let el = card.querySelector(".countdown");
-
   if(card === cards[idxNext]){
-    // Ako je sljedeći namaz – ažuriraj ili napravi countdown
     if(!el){
       el = document.createElement("div");
       el.className = "countdown";
       card.appendChild(el);
     }
     el.innerText = "Za " + cd;
-  } 
-  else {
-    // Ako nije sljedeći – ukloni countdown samo ako postoji
-    if(el){
-      el.remove();
-    }
+  } else {
+    if(el){ el.remove(); }
   }
-});
+ });
 
- document.getElementById("nextBox").innerText=
- "SLJEDEĆA AKTIVNOST: "+next.name+" "+next.time;
-
+ document.getElementById("nextBox").innerText = "SLJEDEĆA AKTIVNOST: "+next.name+" "+next.time;
 }
 
 let hadisIndex = 0;
-
 function rotateHadis(){
   const box = document.getElementById("hadisBox");
   box.style.opacity = 0;
-
   setTimeout(()=>{
     box.textContent = HADISI[hadisIndex];
     box.style.opacity = 1;
@@ -1262,13 +1047,12 @@ function rotateHadis(){
   },500);
 }
 
-setInterval(rotateHadis, 30000); // svakih 30 sekundi
+setInterval(rotateHadis, 30000);
 rotateHadis();
 
 buildGrid();
 update();
 setInterval(update,1000);
-document.body.classList.add("rotated");
 </script>
 
 </body>
