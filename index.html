@@ -348,6 +348,36 @@ body{
   font-size:16px;
  }
 
+/* Prilagođavanje za mobitele i manje ekrane */
+@media (max-width: 768px) {
+  /* Isključi apsolutno preklapanje slika na mobitelu da se ne sudaraju sa satom */
+  .decoration-left, .decoration-right, .lekova-slika-kriva {
+    position: relative !important;
+    display: block;
+    margin: 0 auto 10px auto;
+    max-width: 100px; /* Smanji ukrase da ne bodu oči */
+  }
+
+  /* Rasporedi sat u normalan tok da se ne preklapa */
+  .clock-container {
+    position: relative !important;
+    font-size: clamp(32px, 8vw, 50px) !important;
+    margin: 15px 0;
+  }
+
+  /* Slozi dugmad za ezan jedno ispod drugog ili smanji razmak */
+  .ezan-buttons, .audio-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Kartice vaktova jedna ispod druge preko cijelog ekrana */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+    padding: 0 10px;
+  }
+ 
 }
 
 #muteBtn.muted{
