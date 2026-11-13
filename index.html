@@ -258,16 +258,32 @@ body{
  font-weight: bold;
 }
 
-.hadis{
- font-size:clamp(14px, 2vw, 22px);
- text-align:center;
- color:#d4af37;
- margin-top:10px;
- padding:10px;
- border-top:1px solid var(--border);
- font-style:italic;
- min-height: 50px;
- transition: opacity 0.5s ease;
+/* ANIMACIJA KLIZANJA TEKSTA S LIJEVE NA DESNU STRANU */
+.hadis-container {
+  overflow: hidden;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  background: transparent;
+}
+
+.hadis {
+  font-size: clamp(16px, 2.2vw, 24px);
+  color: #d4af37;
+  font-style: italic;
+  white-space: nowrap;
+  display: inline-block;
+  animation: klizanjeLijevoDesno 25s linear infinite;
+}
+
+@keyframes klizanjeLijevoDesno {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
 }
 
 .ramadan-banner{
@@ -375,7 +391,9 @@ body{
 
 <div class="footer">
  <div id="nextBox" class="nextBox">Sljedeća aktivnost: —</div>
- <div id="hadisBox" class="hadis">Učitavanje poruka...</div>
+ <div class="hadis-container">
+   <div id="hadisBox" class="hadis">Učitavanje poruka...</div>
+ </div>
 </div>
 
 </div>
@@ -453,12 +471,11 @@ const HIJRI_OFFSET = -2;
 let lastPlayed = null;
 let isMuted = false;
 
-// Funkcija za učitavanje hadisa/obavijesti iz posebnog fajla
+// Učitavanje obavijesti/hadisa iz hadisi.txt fajla
 async function ucitajHadise() {
     try {
         let response = await fetch('hadisi.txt');
         let text = await response.text();
-        // Razdvaja tekst po redovima i uklanja prazne redove
         let redovi = text.split('\n').map(r => r.trim()).filter(r => r.length > 0);
         if (redovi.length > 0) {
             HADISI = redovi;
@@ -708,12 +725,10 @@ function update(){
 
 function rotateHadis(){
   const box = document.getElementById("hadisBox");
-  box.style.opacity = 0;
-  setTimeout(()=>{
+  if(HADISI.length > 0) {
     box.textContent = HADISI[hadisIndex];
-    box.style.opacity = 1;
     hadisIndex = (hadisIndex + 1) % HADISI.length;
-  },500);
+  }
 }
 
 // Pokretanje
@@ -721,10 +736,9 @@ buildGrid();
 update();
 setInterval(update,1000);
 
-// Učitaj hadise iz fajla pa pokreni rotaciju
 ucitajHadise().then(() => {
     rotateHadis();
-    setInterval(rotateHadis, 30000); // mijenja svakih 30 sekundi
+    setInterval(rotateHadis, 25000); 
 });
 </script>
 
