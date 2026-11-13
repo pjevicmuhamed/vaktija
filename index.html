@@ -262,19 +262,21 @@ body{
 .hadis-container {
   overflow: hidden;
   width: 100%;
-  margin-top: 10px;
-  padding: 10px 0;
+  margin-top: 5px;
+  padding: 5px 0;
   border-top: 1px solid var(--border);
   background: transparent;
+  display: flex;
+  align-items: center;
 }
 
 .hadis {
-  font-size: clamp(16px, 2.2vw, 24px);
+  font-size: clamp(20px, 3vw, 32px); /* Veća i uočljivija slova */
   color: #d4af37;
   font-style: italic;
   white-space: nowrap;
   display: inline-block;
-  animation: klizanjeLijevoDesno 25s linear infinite;
+  animation: klizanjeLijevoDesno 20s linear infinite; /* Malo brže kretanje da nema praznog hoda */
 }
 
 @keyframes klizanjeLijevoDesno {
@@ -738,7 +740,7 @@ setInterval(update,1000);
 
 ucitajHadise().then(() => {
     rotateHadis();
-    setInterval(rotateHadis, 25000); 
+    setInterval(rotateHadis, 12000); 
 });
 </script>
 
