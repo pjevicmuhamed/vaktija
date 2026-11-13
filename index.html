@@ -222,9 +222,8 @@ body{
  box-shadow: 0 0 25px rgba(212,175,55,0.4);
 }
 
-/* VELIČINA FONTOVA ZA NAZIVE VAKTOVA */
 .name{
- font-size: clamp(14px, 1.4vw, 20px);
+ font-size: clamp(12px, 1.4vw, 20px);
  color: var(--gold);
  font-weight: 700;
  letter-spacing: 1px;
@@ -267,6 +266,8 @@ body{
  padding:10px;
  border-top:1px solid var(--border);
  font-style:italic;
+ min-height: 50px;
+ transition: opacity 0.5s ease;
 }
 
 .ramadan-banner{
@@ -341,7 +342,7 @@ body{
             <span class="ornament-symbol">۞</span>
         </div>
     </div>
-    <img src="Logo_DZAMIJA.png" class="logo" alt="Logo Džamija">
+    <img src="logo_DZAMIJA.png" class="logo" alt="Logo Džamija">
 </div>
 
   <div class="dates">
@@ -374,35 +375,15 @@ body{
 
 <div class="footer">
  <div id="nextBox" class="nextBox">Sljedeća aktivnost: —</div>
- <div id="hadisBox" class="hadis"></div>
+ <div id="hadisBox" class="hadis">Učitavanje poruka...</div>
 </div>
 
 </div>
 
 <script>
 const NAMES = ["Zora", "Izlazak Sunca", "Podne", "Ikindija", "Akšam", "Jacija"];
-
-const HADISI = [
-  "Najbolji među vama su oni koji su najkorisniji ljudima.",
-  "Ko sagradi džamiju radi Allaha, Allah će njemu sagraditi kuću u Džennetu.",
-  "Namaz je stub vjere.",
-  "Dova je srž ibadeta.",
-  "Allah voli kada neko od vas radi posao da ga uradi savršeno.",
-  "Ko olakša bratu muslimanu, Allah će njemu olakšati.",
-  "Istinski musliman je onaj od čijeg jezika i ruku su sigurni ostali muslimani.",
-  "Meni najbliži od vas bit će oni koji imaju najljepši ahlak, koji su skrušeni i koji mire i zbližavaju.",
-  "Najviše ljudi koji će ući u džennet bit će zbog bogobojaznosti (takvaluka) i lijepog ahlaka.",
-  "Namaz u džematu vrijedniji je dvadeset i sedam puta od namaza pojedinca.",
-  "Onaj ko nije zahvalan ljudima nije zahvalan ni Allahu.",
-  "Neće ući u Džennet onaj koji kida rodbinske veze.",
-  "Nećete osvojiti ljude svojim imetkom, nego svojim osmjehom i lijepim ponašanjem.",
-  "Djela se vrednuju prema namjerama.",
-  "Najbolji od vas su oni koji imaju najljepše ponašanje.",
-  "Nije snažan onaj ko drugog obori u hrvanju, nego onaj ko se savlada u ljutnji.",
-  "Čistoća je pola vjere.",
-  "Nije bogatstvo u mnoštvu imetka, nego je pravo bogatstvo u bogatstvu (zadovoljstvu) duše.",
-  "Lijepa riječ je sadaka."
-];
+let HADISI = ["Učitavanje poruka..."];
+let hadisIndex = 0;
 
 const VAKTIJA = {
 "2026-11-01":["04:47","06:17","11:31","14:10","16:40","18:01"],
@@ -471,6 +452,21 @@ const VAKTIJA = {
 const HIJRI_OFFSET = -2; 
 let lastPlayed = null;
 let isMuted = false;
+
+// Funkcija za učitavanje hadisa/obavijesti iz posebnog fajla
+async function ucitajHadise() {
+    try {
+        let response = await fetch('hadisi.txt');
+        let text = await response.text();
+        // Razdvaja tekst po redovima i uklanja prazne redove
+        let redovi = text.split('\n').map(r => r.trim()).filter(r => r.length > 0);
+        if (redovi.length > 0) {
+            HADISI = redovi;
+        }
+    } catch (e) {
+        console.error("Greška pri učitavanju hadisa:", e);
+    }
+}
 
 function playEzan(vakatName){
   if(vakatName === "Izlazak Sunca") return;
@@ -652,9 +648,9 @@ function update(){
 
  for(let i=0;i<times.length;i++){
   if(now<times[i].date){
-   next=times[i];
-   current=times[i-1]||null;
-   break;
+    next=times[i];
+    current=times[i-1]||null;
+    break;
   }
  }
 
@@ -710,7 +706,6 @@ function update(){
  document.getElementById("nextBox").innerText = "SLJEDEĆA AKTIVNOST: "+next.name+" "+next.time;
 }
 
-let hadisIndex = 0;
 function rotateHadis(){
   const box = document.getElementById("hadisBox");
   box.style.opacity = 0;
@@ -721,12 +716,16 @@ function rotateHadis(){
   },500);
 }
 
-setInterval(rotateHadis, 30000);
-rotateHadis();
-
+// Pokretanje
 buildGrid();
 update();
 setInterval(update,1000);
+
+// Učitaj hadise iz fajla pa pokreni rotaciju
+ucitajHadise().then(() => {
+    rotateHadis();
+    setInterval(rotateHadis, 30000); // mijenja svakih 30 sekundi
+});
 </script>
 
 </body>
